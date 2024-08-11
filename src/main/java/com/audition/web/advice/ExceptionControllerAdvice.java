@@ -38,18 +38,14 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     ProblemDetail handleMainException(final Exception e) {
-        // TODO Add handling for Exception
         final HttpStatusCode status = getHttpStatusCodeFromException(e);
         return createProblemDetail(e, status);
-
     }
 
     @ExceptionHandler(SystemException.class)
     ProblemDetail handleSystemException(final SystemException e) {
-        // TODO `Add Handling for SystemException
         final HttpStatusCode status = getHttpStatusCodeFromSystemException(e);
         return createProblemDetail(e, status);
-
     }
 
 
