@@ -36,7 +36,7 @@ public class AuditionIntegrationClient {
         return Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
     }
 
-    public AuditionPost getPostById(final String id) {
+    public AuditionPost getPostById(final Integer id) {
         // TODO get post by post ID call from https://jsonplaceholder.typicode.com/posts/
         try {
             final String postUrl = baseUrl + "/" + postPath + "/" + id;
@@ -55,7 +55,7 @@ public class AuditionIntegrationClient {
     }
 
     // TODO Write a method GET comments for a post from https://jsonplaceholder.typicode.com/posts/{postId}/comments - the comments must be returned as part of the post.
-    public List<AuditionComment> getCommentsFromVariableId(final String postId) {
+    public List<AuditionComment> getCommentsFromVariableId(final Integer postId) {
         final String commentsUrl = baseUrl + "/"
             + postPath
             + "/"
@@ -68,7 +68,7 @@ public class AuditionIntegrationClient {
 
     // TODO write a method. GET comments for a particular Post from https://jsonplaceholder.typicode.com/comments?postId={postId}.
     // The comments are a separate list that needs to be returned to the API consumers. Hint: this is not part of the AuditionPost pojo.
-    public List<AuditionComment> getCommentsFromParamId(final String postId) {
+    public List<AuditionComment> getCommentsFromParamId(final Integer postId) {
         String commentsUrl = baseUrl + "/"
             + commentPath
             + "?postId="

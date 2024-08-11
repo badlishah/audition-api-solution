@@ -3,6 +3,7 @@ package com.audition.web;
 import com.audition.model.AuditionComment;
 import com.audition.model.AuditionPost;
 import com.audition.service.AuditionService;
+import jakarta.validation.constraints.Positive;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,24 +30,21 @@ public class AuditionController {
     }
 
     @RequestMapping(value = "/posts/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody AuditionPost getPosts(@PathVariable("id") final String postId) {
-        final AuditionPost auditionPosts = auditionService.getPostById(postId);
-
-        // TODO Add input validation
-
-        return auditionPosts;
+    public @ResponseBody AuditionPost getPosts(@PathVariable("id")
+        @Positive final Integer postId) {
+        return  auditionService.getPostById(postId);
     }
 
     // TODO Add additional methods to return comments for each post. Hint: Check https://jsonplaceholder.typicode.com/
     @RequestMapping(value = "/posts/{id}/comments", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<AuditionComment> getCommentsFromPathVariableId(@PathVariable("id") final String postId) {
-        // TODO Add input validation
+    public @ResponseBody List<AuditionComment> getCommentsFromPathVariableId(@PathVariable(name = "id", required = true)
+        @Positive final Integer postId) {
         return auditionService.getCommentsVariablePostId(postId);
     }
 
     @RequestMapping(value = "/comments", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<AuditionComment> getCommentsFromRequestParamId(@RequestParam("postId") final String postId) {
-        // TODO Add input validation
+    public @ResponseBody List<AuditionComment> getCommentsFromRequestParamId(@RequestParam(name = "postId", required = true)
+        @Positive final Integer postId) {
         return auditionService.getCommentsParamPostId(postId);
     }
 
