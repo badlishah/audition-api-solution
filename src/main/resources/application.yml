@@ -29,5 +29,6 @@ logging:
 application:
   config:
     url:
-      urlBase: https://jsonplaceholder.typicode.com
-      urlPosts: /posts
+      base: https://jsonplaceholder.typicode.com
+      postsPath: posts
+      commentsPath: comments

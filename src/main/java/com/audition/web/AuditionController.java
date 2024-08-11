@@ -1,5 +1,6 @@
 package com.audition.web;
 
+import com.audition.model.AuditionComment;
 import com.audition.model.AuditionPost;
 import com.audition.service.AuditionService;
 import java.util.List;
@@ -8,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,5 +38,17 @@ public class AuditionController {
     }
 
     // TODO Add additional methods to return comments for each post. Hint: Check https://jsonplaceholder.typicode.com/
+    @RequestMapping(value = "/posts/{id}/comments", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<AuditionComment> getCommentsFromPathVariableId(@PathVariable("id") final String postId) {
+        // TODO Add input validation
+        return auditionService.getCommentsVariablePostId(postId);
+    }
+
+    @RequestMapping(value = "/comments", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<AuditionComment> getCommentsFromRequestParamId(@RequestParam("postId") final String postId) {
+        // TODO Add input validation
+        return auditionService.getCommentsParamPostId(postId);
+    }
+
 
 }
