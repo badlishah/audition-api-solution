@@ -18,6 +18,6 @@ public class ResponseHeaderInjector extends OncePerRequestFilter {
         throws ServletException, IOException {
         response.setHeader(TRACE_ID, "-");
         response.setHeader(SPAN_ID, "-");
-        chain.doFilter(request, response);
+        filterChain.doFilter(request, response);
     }
 }
