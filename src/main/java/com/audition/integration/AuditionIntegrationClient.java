@@ -15,16 +15,20 @@ import java.util.Objects;
 public class AuditionIntegrationClient {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private transient RestTemplate restTemplate;
 
     @Value("${application.config.url.base}")
-    String baseUrl;
+    transient String baseUrl;
 
     @Value("${application.config.url.postsPath}")
-    String postPath;
+    transient String postPath;
 
     @Value("${application.config.url.commentsPath}")
-    String commentPath;
+    transient String commentPath;
+
+    public AuditionIntegrationClient(final RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public List<AuditionPost> getPosts() {
         final String postUrl = baseUrl + "/" + postPath;
@@ -38,7 +42,6 @@ public class AuditionIntegrationClient {
         return responseEntity.getBody();
     }
 
-    // TODO Write a method GET comments for a post from https://jsonplaceholder.typicode.com/posts/{postId}/comments - the comments must be returned as part of the post.
     public List<AuditionComment> getCommentsFromVariableId(final Integer postId) {
         final String commentsUrl = baseUrl + "/"
             + postPath
@@ -52,7 +55,7 @@ public class AuditionIntegrationClient {
 
     // The comments are a separate list that needs to be returned to the API consumers. Hint: this is not part of the AuditionPost pojo.
     public List<AuditionComment> getCommentsFromParamId(final Integer postId) {
-        String commentsUrl = baseUrl + "/"
+        final String commentsUrl = baseUrl + "/"
             + commentPath
             + "?postId="
             + postId;

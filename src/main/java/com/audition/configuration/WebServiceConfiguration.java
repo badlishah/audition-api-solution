@@ -29,8 +29,8 @@ public class WebServiceConfiguration implements WebMvcConfigurer {
     private final transient RestTemplateHeaderModifierInterceptor loggingInterceptor;
     private final transient CommResponseErrorHandler responseErrorHandler;
 
-    public WebServiceConfiguration(RestTemplateHeaderModifierInterceptor loggingInterceptor,
-        CommResponseErrorHandler responseErrorHandler) {
+    public WebServiceConfiguration(final RestTemplateHeaderModifierInterceptor loggingInterceptor,
+        final CommResponseErrorHandler responseErrorHandler) {
         this.loggingInterceptor = loggingInterceptor;
         this.responseErrorHandler = responseErrorHandler;
     }
@@ -57,13 +57,13 @@ public class WebServiceConfiguration implements WebMvcConfigurer {
             .getName()
             .equals(MappingJackson2HttpMessageConverter.class.getName()));
         restTemplate.getMessageConverters().add(messageConverter);
-        // TODO create a logging interceptor that logs request/response for rest template calls.
         List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
         if (CollectionUtils.isEmpty(interceptors)) {
             interceptors = new ArrayList<>();
         }
         interceptors.add(loggingInterceptor);
         restTemplate.setInterceptors(interceptors);
+        restTemplate.setErrorHandler(responseErrorHandler);
         return restTemplate;
     }
 

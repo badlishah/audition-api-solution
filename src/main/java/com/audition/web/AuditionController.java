@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuditionController {
 
     @Autowired
-    AuditionService auditionService;
+    private final transient AuditionService auditionService;
 
-    // TODO Add a query param that allows data filtering. The intent of the filter is at developers discretion.
+    public AuditionController(final AuditionService auditionService) {
+        this.auditionService = auditionService;
+    }
+
     @RequestMapping(value = "/posts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<AuditionPost> getPosts() {
-
-        // TODO Add logic that filters response data based on the query param
-
         return auditionService.getPosts();
     }
 
@@ -37,7 +37,6 @@ public class AuditionController {
         return  auditionService.getPostById(postId);
     }
 
-    // TODO Add additional methods to return comments for each post. Hint: Check https://jsonplaceholder.typicode.com/
     @RequestMapping(value = "/posts/{id}/comments", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<AuditionComment> getCommentsFromPathVariableId(@PathVariable(name = "id", required = true)
         @Positive final Integer postId) {

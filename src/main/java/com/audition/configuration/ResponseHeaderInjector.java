@@ -14,7 +14,7 @@ public class ResponseHeaderInjector extends OncePerRequestFilter {
     private static final String SPAN_ID = "X-openTelemetrySpanId";
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
         throws ServletException, IOException {
         response.setHeader(TRACE_ID, "-");
         response.setHeader(SPAN_ID, "-");

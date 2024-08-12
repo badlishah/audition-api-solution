@@ -5,9 +5,9 @@ import java.io.Serial;
 public class ClientException extends SystemException {
     @Serial
     private static final long serialVersionUID = 1L;
-    private static final String title = "Client Error";
+    private static final String TITLE = "Client Error";
 
     public ClientException(final String detail, final Integer errorCode) {
-        super(detail, title, errorCode);
+        super(detail, TITLE, errorCode);
     }
 }

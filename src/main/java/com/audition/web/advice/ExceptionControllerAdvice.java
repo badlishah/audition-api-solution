@@ -5,7 +5,7 @@ import static org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED;
 
 import com.audition.common.exception.SystemException;
 import com.audition.common.logging.AuditionLogger;
-import io.micrometer.common.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
     private static final String DEFAULT_MESSAGE = "API Error occurred. Please contact support or administrator.";
 
     @Autowired
-    private AuditionLogger logger;
+    private transient AuditionLogger logger;
 
     @ExceptionHandler(HttpClientErrorException.class)
     ProblemDetail handleHttpClientException(final HttpClientErrorException e) {
@@ -72,7 +72,9 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
         try {
             return HttpStatusCode.valueOf(exception.getStatusCode());
         } catch (final IllegalArgumentException iae) {
-            logger.info(LOG, ERROR_MESSAGE + exception.getStatusCode());
+            if (pageNotFoundLogger.isInfoEnabled()) {
+                logger.info(LOG, ERROR_MESSAGE + exception.getStatusCode());
+            }
             return INTERNAL_SERVER_ERROR;
         }
     }
