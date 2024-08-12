@@ -77,5 +77,26 @@ Applicants need to do the following to submit their work:
 ---
 ## Additional Information based on the implementation
 
-This section MUST be completed by applicants. It allows applicants to showcase their view on how an application can/should be documented. 
-Applicants can choose to do this in a separate markdown file that needs to be included when the code is committed. 
+## Building the application
+```sh 
+./gradlew clean build
+```
+## Generated Reports
+Under the directory /build
+
+| Report          | Path                                 |
+|-----------------|--------------------------------------|
+| CheckStyle main | /reports/checkstyle/main.html        |
+| CheckStyle test | /reports/checkstyle/test.html        |
+| PMD Main        | /reports/pmd/main.html               |
+| PMD Test        | /reports/pmd/test.html               |
+| SpotBug         | /reports/spotbugs/spotbugs.html      |
+| Jacoco          | /reports/jacoco/test/html/index.html |
+
+## Executing the application
+```sh
+java -jar build/libs/audition-api-0.0.1-SNAPSHOT.jar
+```
+## API Documentation
+- http://localhost:8080/swagger-ui/index.html
+- http://localhost:8080/v3/api-docs
