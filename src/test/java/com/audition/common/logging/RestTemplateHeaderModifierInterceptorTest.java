@@ -18,13 +18,13 @@ import org.springframework.http.HttpRequest;
 import org.mockito.ArgumentCaptor;
 
 @Slf4j
-public class RestTemplateHeaderModifierInterceptorTest {
-    private  transient RestTemplateHeaderModifierInterceptor interceptor;
-    private  transient AuditionLogger logger;
-    private  transient HttpRequest request;
-    private  transient ClientHttpRequestExecution execution;
-    private  transient ClientHttpResponse response;
-    private  transient byte[] body;
+class RestTemplateHeaderModifierInterceptorTest {
+    //private transient RestTemplateHeaderModifierInterceptor interceptor;
+    private transient AuditionLogger logger;
+    private transient HttpRequest request;
+    private transient ClientHttpRequestExecution execution;
+    private transient ClientHttpResponse response;
+    private transient byte[] body;
 
     @BeforeEach
     void init() {
@@ -37,12 +37,12 @@ public class RestTemplateHeaderModifierInterceptorTest {
 
     @Test
     void loggingRequestAndResponse() throws IOException {
+        RestTemplateHeaderModifierInterceptor interceptor;
         when(execution.execute(any(), any())).thenReturn(response);
         interceptor = new RestTemplateHeaderModifierInterceptor(logger);
         final var argumentCaptor = ArgumentCaptor.forClass(String.class);
         interceptor.intercept(request, body, execution);
         verify(logger, times(2)).info(any(), argumentCaptor.capture());
-        log.info(argumentCaptor.getAllValues().get(1));
         assertTrue(argumentCaptor.getAllValues().get(0).contains("Request:"));
         assertTrue(argumentCaptor.getAllValues().get(1).contains("Response:"));
     }

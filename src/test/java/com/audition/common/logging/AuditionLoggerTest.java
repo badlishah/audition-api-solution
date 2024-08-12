@@ -17,7 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 
 @ExtendWith(MockitoExtension.class)
-public class AuditionLoggerTest {
+class AuditionLoggerTest {
 
     @SuppressWarnings("PMD")
     private Logger mockLogger;

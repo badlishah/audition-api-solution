@@ -11,9 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-public class AuditionControllerTest {
+class AuditionControllerTest {
 
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
     private transient AuditionController controller;
     private transient AuditionService service;
 
@@ -51,7 +51,7 @@ public class AuditionControllerTest {
     }
 
     private int randomInt() {
-        return random.nextInt();
+        return RANDOM.nextInt();
     }
 
 }
